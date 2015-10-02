@@ -13,7 +13,7 @@ define([
         this.userControl = userControl;
 
         this.position = {
-            tank: {
+            unit: {
                 x: 100,
                 y: 100,
                 dir: 'bottom'
@@ -26,12 +26,12 @@ define([
         };
 
         this.draw = function() {
-            playground.draw(this.position.sprite.x, this.position.sprite.y, this.position.tank.x, this.position.tank.y);
+            playground.draw(this.position.sprite.x, this.position.sprite.y, this.position.unit.x, this.position.unit.y);
         }.bind(this);
 
         this.setPosition = function(x, y) {
-            this.position.tank.x = x;
-            this.position.tank.y = y;
+            this.position.unit.x = x;
+            this.position.unit.y = y;
         };
 
         tankMove.init(this);

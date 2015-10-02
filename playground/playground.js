@@ -32,8 +32,8 @@ define([
                         Math.floor(index / (dict.canvas.WIDTH / 45)) * 45
                     );
                     if (pos.type.indexOf('tank') > -1) {
-                        pos.position.tank.dir = ['top', 'right', 'bottom', 'left'][parseInt(Math.random() * 4)];
-                        pos.changeSpritePosition(pos.position.tank.dir);
+                        pos.position.unit.dir = ['top', 'right', 'bottom', 'left'][parseInt(Math.random() * 4)];
+                        pos.changeSpritePosition(pos.position.unit.dir);
                     }
                 }
             });

@@ -1,22 +1,47 @@
 define(function() {
-    return function(triggerEvent, positionX, positionY, positionCheckElX, positionCheckElY) {
-        switch(triggerEvent) {
+    var typeAffected = {
+        brick: 'stop',
+        water: 'slow'
+    };
+
+    var isCollision;
+
+    function check(direction, movePositionX, movePositionY, staticPositionX, staticPositionY, staticType, step) {
+        switch(direction) {
             case 'top':
-                return positionY - positionCheckElY <= 45 && positionY - positionCheckElY > -45 &&
-                    positionX - positionCheckElX > -45 && positionX - positionCheckElX < 45;
+                isCollision = movePositionY - staticPositionY <= step && movePositionY - staticPositionY > -step &&
+                movePositionX - staticPositionX > -step && movePositionX - staticPositionX < step;
+                return isCollision ? typeAffected[staticType] || true : false;
                 break;
             case 'right':
-                return positionX - positionCheckElX >= -45 && positionX - positionCheckElX < 45 &&
-                    positionY - positionCheckElY > -45 && positionY - positionCheckElY < 45;
+                isCollision = movePositionX - staticPositionX >= -step && movePositionX - staticPositionX < step &&
+                movePositionY - staticPositionY > -step && movePositionY - staticPositionY < step;
+                return isCollision ? typeAffected[staticType] || true : false;
                 break;
             case 'bottom':
-                return positionY - positionCheckElY >= -45 && positionY - positionCheckElY < 45 &&
-                    positionX - positionCheckElX > -45 && positionX - positionCheckElX < 45;
+                isCollision = movePositionY - staticPositionY >= -step && movePositionY - staticPositionY < step &&
+                movePositionX - staticPositionX > -step && movePositionX - staticPositionX < step;
+                return isCollision ? typeAffected[staticType] || true : false;
                 break;
             case 'left':
-                return positionX - positionCheckElX <= 45 && positionX - positionCheckElX > -45 &&
-                    positionY - positionCheckElY > -45 && positionY - positionCheckElY < 45;
+                isCollision = movePositionX - staticPositionX <= step && movePositionX - staticPositionX > -step &&
+                movePositionY - staticPositionY > -step && movePositionY - staticPositionY < step;
+                return isCollision ? typeAffected[staticType] || true : false;
                 break;
         }
+    }
+
+    return function(playground, typeFireEvent, checkEl, step) {
+        return playground.units.map(function(unit) {
+            if (!/tank|fire/.test(unit.type)) {
+                isCollision = check(typeFireEvent, checkEl.position.unit.x, checkEl.position.unit.y, unit.position.unit.x, unit.position.unit.y, unit.type, step);
+                return {
+                    type: isCollision,
+                    unit: unit
+                }
+            }
+        }.bind(this)).filter(function(rec) {
+            return rec !== undefined && rec.type !== undefined && rec.type !== false
+        })
     }
 });

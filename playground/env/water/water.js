@@ -4,7 +4,7 @@ define(['playground/check-collisions'], function(checkCollisions) {
         this.zIndex = 0;
 
         this.position = {
-            water: {
+            unit: {
                 x: 100,
                 y: 100
             },
@@ -15,21 +15,13 @@ define(['playground/check-collisions'], function(checkCollisions) {
             }
         };
 
-        this.checkCollisions = function(tankPosition, triggerEvent) {
-            if (checkCollisions(triggerEvent, tankPosition.x, tankPosition.y, this.position.water.x, this.position.water.y)) {
-                return {
-                    action: 'slow'
-                }
-            }
-        }.bind(this);
-
         this.draw = function() {
-            playground.draw(this.position.sprite.x, this.position.sprite.y, this.position.water.x, this.position.water.y);
+            playground.draw(this.position.sprite.x, this.position.sprite.y, this.position.unit.x, this.position.unit.y);
         };
 
         this.setPosition = function(x, y) {
-            this.position.water.x = x;
-            this.position.water.y = y;
+            this.position.unit.x = x;
+            this.position.unit.y = y;
         };
     }
 });

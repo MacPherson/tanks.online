@@ -15,7 +15,8 @@ define([
 
     for(var i = 0; i < 50; i += 1) {
         playground.add(brick({
-            draw: playground.draw
+            draw: playground.draw,
+            units: playground.units
         }));
         playground.add(grass({
             draw: playground.draw

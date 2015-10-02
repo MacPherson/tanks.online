@@ -4,7 +4,7 @@ define(['playground/check-collisions'], function(checkCollisions) {
         this.zIndex = 2;
 
         this.position = {
-            brick: {
+            unit: {
                 x: 100,
                 y: 100
             },
@@ -15,21 +15,26 @@ define(['playground/check-collisions'], function(checkCollisions) {
             }
         };
 
-        this.checkCollisions = function(tankPosition, triggerEvent) {
-            if (checkCollisions(triggerEvent, tankPosition.x, tankPosition.y, this.position.brick.x, this.position.brick.y)) {
-                return {
-                    action: 'stop'
-                }
+        this.levelDestroy = 0;
+
+        this.destroy = function() {
+            if (this.levelDestroy === 1) {
+                playground.units.splice(playground.units.indexOf(this), 1);
+                return;
             }
-        }.bind(this);
+
+            this.position.sprite.x = 264;
+            this.position.sprite.y = 165;
+            this.levelDestroy += 1;
+        };
 
         this.draw = function() {
-            playground.draw(this.position.sprite.x, this.position.sprite.y, this.position.brick.x, this.position.brick.y);
+            playground.draw(this.position.sprite.x, this.position.sprite.y, this.position.unit.x, this.position.unit.y);
         };
 
         this.setPosition = function(x, y) {
-            this.position.brick.x = x;
-            this.position.brick.y = y;
+            this.position.unit.x = x;
+            this.position.unit.y = y;
         };
     }
 });

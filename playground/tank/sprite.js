@@ -5,7 +5,7 @@ define(function() {
                 _VHOrientation: function(spritePos, spriteY, spritePosOs, secondOs, dir) {
                     this.position.sprite[spritePosOs] = spriteY;
 
-                    if (this.position.tank.dir === dir && this.position.sprite.shot < 6) {
+                    if (this.position.unit.dir === dir && this.position.sprite.shot < 6) {
                         this.position.sprite[secondOs] = spritePos[this.position.sprite.shot + 1];
                         this.position.sprite.shot += 1;
                     } else {
@@ -15,7 +15,7 @@ define(function() {
                         this.position.sprite[secondOs] = spritePos[this.position.sprite.shot];
                     }
 
-                    this.position.tank.dir = dir;
+                    this.position.unit.dir = dir;
                 },
                 _vertical: function(spriteY, dir) {
                     algsSpitePosition._VHOrientation.call(this, [727, 694, 661, 628, 595, 562, 529], spriteY, 'y', 'x', dir);

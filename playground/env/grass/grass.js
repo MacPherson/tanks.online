@@ -4,7 +4,7 @@ define(['playground/check-collisions'], function(checkCollisions) {
         this.zIndex = 2;
 
         this.position = {
-            grass: {
+            unit: {
                 x: 100,
                 y: 100
             },
@@ -15,21 +15,13 @@ define(['playground/check-collisions'], function(checkCollisions) {
             }
         };
 
-        this.checkCollisions = function(tankPosition, triggerEvent) {
-            if (checkCollisions(triggerEvent, tankPosition.x, tankPosition.y, this.position.grass.x, this.position.grass.y)) {
-                return {
-                    action: 'hide'
-                }
-            }
-        }.bind(this);
-
         this.draw = function() {
-            playground.draw(this.position.sprite.x, this.position.sprite.y, this.position.grass.x, this.position.grass.y);
+            playground.draw(this.position.sprite.x, this.position.sprite.y, this.position.unit.x, this.position.unit.y);
         };
 
         this.setPosition = function(x, y) {
-            this.position.grass.x = x;
-            this.position.grass.y = y;
+            this.position.unit.x = x;
+            this.position.unit.y = y;
         };
     }
 });
