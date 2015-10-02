@@ -1,4 +1,4 @@
-define(['./fire'], function(fire) {
+define(['./fire'], function(Fire) {
     return {
         init: function(tank) {
             function checkCollisions(typeFireEvent) {
@@ -33,7 +33,7 @@ define(['./fire'], function(fire) {
                     this.position.tank.x -= this.speed;
                 },
                 fire: function() {
-                    fire(this.position.tank)
+                    tank.playground.units.push(new Fire(tank.position.tank))
                 }
             }, tank);
 
