@@ -1,61 +1,61 @@
-define(function() {
+define(['./fire'], function(fire) {
     return {
         init: function(tank) {
+            function checkCollisions(typeFireEvent) {
+                var collisionInsructions = this.playground.units.map(function(unit) {
+                    if (unit !== this) {
+                        return unit.checkCollisions(this.position.tank, typeFireEvent);
+                    }
+                }.bind(this));
+
+                var collisionResult = [];
+
+                collisionInsructions.forEach(function(ins) {
+                    if (ins) {
+                        collisionResult.push(ins.action);
+                    }
+                });
+
+                return collisionResult;
+            }
+
             tank.userControl.on({
                 top: function() {
-                    this.position.tank.y -= 3;
+                    this.position.tank.y -= this.speed;
                 },
                 right: function() {
-                    this.position.tank.x += 3;
+                    this.position.tank.x += this.speed;
                 },
                 bottom: function() {
-                    this.position.tank.y += 3;
+                    this.position.tank.y += this.speed;
                 },
                 left: function() {
-                    this.position.tank.x -= 3;
+                    this.position.tank.x -= this.speed;
                 },
                 fire: function() {
-                    console.log('fire')
+                    fire(this.position.tank)
                 }
             }, tank);
 
             tank.userControl.interceptor({
                 before: function(typeFireEvent) {
                     if (typeFireEvent !== 'fire') {
-                        this.playground.clear(this.position.tank.x, this.position.tank.y, 45, 45);
+                        var collisionResult = checkCollisions.call(this, typeFireEvent);
 
-                        var collisionInsructions = this.playground.units.map(function(unit) {
-                            if (unit !== this) {
-                                return unit.checkCollisions(this.position.tank, typeFireEvent);
-                            }
-                        }.bind(this)).filter(function(ins){return ins !== undefined});
-
-                        var collisionResult = collisionInsructions.map(function(ins){return ins.action});
-
-                        if (collisionResult.indexOf('hide') !== -1) {
-                            this.hideMatrix = collisionInsructions.filter(function(ins){return ins.action === 'hide'}).map(function(ins){return ins.matrix});
-                        } else {
-                            this.hideMatrix = null;
+                        if (collisionResult.indexOf('stop') !== -1) {
+                            this.changeSpritePosition(typeFireEvent);
+                            return false
                         }
-                        this.draw();
 
-                        //if (collisionResult.indexOf('stop') !== -1) {
-                        //    this.changeSpritePosition(typeFireEvent);
-                        //    this.draw();
-                        //    return false
-                        //}
-                        //
-                        //if (collisionResult.indexOf('slow') !== -1) {
-                        //
-                        //}
+                        if (collisionResult.indexOf('slow') !== -1) {
+                            this.speed = this.DEFAULT_SPEED / 2;
+                        }
                     }
                 },
                 after: function(typeFireEvent) {
                     if (typeFireEvent !== 'fire') {
                         this.changeSpritePosition(typeFireEvent);
-                        this.draw();
-                        this.playground.clear(this.position.tank.x, this.position.tank.y, 45, 45);
-                        this.draw();
+                        this.speed = this.DEFAULT_SPEED;
                     }
                 }
             }, tank);

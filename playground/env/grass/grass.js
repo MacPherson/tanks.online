@@ -1,7 +1,7 @@
 define(['playground/check-collisions'], function(checkCollisions) {
     return function(playground) {
         this.type = 'grass';
-        this.zIndex = 1;
+        this.zIndex = 2;
 
         this.position = {
             grass: {
@@ -16,11 +16,9 @@ define(['playground/check-collisions'], function(checkCollisions) {
         };
 
         this.checkCollisions = function(tankPosition, triggerEvent) {
-            var collisions = checkCollisions(tankPosition.x, tankPosition.y, this.position.grass.x, this.position.grass.y);
-            if (collisions.is) {
+            if (checkCollisions(triggerEvent, tankPosition.x, tankPosition.y, this.position.grass.x, this.position.grass.y)) {
                 return {
-                    action: 'hide',
-                    matrix: collisions.matrix
+                    action: 'hide'
                 }
             }
         }.bind(this);

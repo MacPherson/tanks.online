@@ -1,3 +1,10 @@
-/**
- * Created by max on 17/09/15.
- */
+define(function() {
+    return {
+        init: function() {
+
+        },
+        fire: function() {
+
+        }
+    }
+});

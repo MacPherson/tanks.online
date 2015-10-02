@@ -5,7 +5,9 @@ define([
 ], function(dict, tankMove, tankSprite) {
     return function(type, playground, userControl) {
         this.type = 'tank:' + type;
-        this.zIndex = 2;
+        this.zIndex = 1;
+        this.DEFAULT_SPEED = 3;
+        this.speed = this.DEFAULT_SPEED;
 
         this.playground = playground;
         this.userControl = userControl;
@@ -24,12 +26,6 @@ define([
         };
 
         this.draw = function() {
-            this.hideMatrix = this.hideMatrix || {
-                x: 0,
-                y: 0,
-                width: 0,
-                height: 0
-            };
             playground.draw(this.position.sprite.x, this.position.sprite.y, this.position.tank.x, this.position.tank.y);
         }.bind(this);
 

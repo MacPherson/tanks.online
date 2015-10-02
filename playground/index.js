@@ -10,22 +10,18 @@ define([
 
     playground.add(tank(dict.ME, {
         draw: playground.draw,
-        clear: playground.clear,
         units: playground.units
     }));
 
     for(var i = 0; i < 50; i += 1) {
-        //playground.add(brick({
-        //    draw: playground.draw,
-        //    clear: playground.clear
-        //}));
+        playground.add(brick({
+            draw: playground.draw
+        }));
         playground.add(grass({
-            draw: playground.draw,
-            clear: playground.clear
+            draw: playground.draw
         }));
         playground.add(water({
-            draw: playground.draw,
-            clear: playground.clear
+            draw: playground.draw
         }));
     }
 

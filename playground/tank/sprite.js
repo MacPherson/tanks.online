@@ -18,10 +18,10 @@ define(function() {
                     this.position.tank.dir = dir;
                 },
                 _vertical: function(spriteY, dir) {
-                    algsSpitePosition._VHOrientation.call(this, [529, 562, 595, 628, 661, 694, 727], spriteY, 'y', 'x', dir);
+                    algsSpitePosition._VHOrientation.call(this, [727, 694, 661, 628, 595, 562, 529], spriteY, 'y', 'x', dir);
                 },
                 _horizontal: function(spriteX, dir) {
-                    algsSpitePosition._VHOrientation.call(this, [100, 133, 166, 199, 232, 265, 298], spriteX, 'x', 'y', dir);
+                    algsSpitePosition._VHOrientation.call(this, [298, 265, 232, 199, 166, 133, 100], spriteX, 'x', 'y', dir);
                 },
                 top: function() {
                     algsSpitePosition._vertical.call(this, 34, 'top');

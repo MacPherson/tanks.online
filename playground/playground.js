@@ -11,6 +11,7 @@ define([
 
         function render() {
             requestAnimationFrame(render.bind(this));
+            canvasContext.clearRect(0, 0, dict.canvas.WIDTH, dict.canvas.HEIGHT);
             this.units.sort(function(prev, next) {
                 return prev.zIndex - next.zIndex
             }).forEach(function(unit) {
@@ -47,13 +48,9 @@ define([
             applyFirstPositions.call(this);
             render.call(this);
         }.bind(this);
-        this.clear = function(positionX, positionY, width, height) {
-            canvasContext.clearRect(positionX, positionY, width, height);
-        };
         this.draw = function(spriteX, spriteY, positionX, positionY) {
             resources.get(function(sprite) {
                 canvasContext.drawImage(sprite, spriteX, spriteY, 30, 30, positionX, positionY, 45, 45);
-                canvasContext.clip()
             });
         };
     };

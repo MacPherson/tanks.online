@@ -1,7 +1,7 @@
 define(['playground/check-collisions'], function(checkCollisions) {
     return function(playground) {
         this.type = 'water';
-        this.zIndex = 1;
+        this.zIndex = 0;
 
         this.position = {
             water: {
@@ -16,11 +16,9 @@ define(['playground/check-collisions'], function(checkCollisions) {
         };
 
         this.checkCollisions = function(tankPosition, triggerEvent) {
-            var collisions = checkCollisions(tankPosition.x, tankPosition.y, this.position.water.x, this.position.water.y);
-            if (collisions.is) {
+            if (checkCollisions(triggerEvent, tankPosition.x, tankPosition.y, this.position.water.x, this.position.water.y)) {
                 return {
-                    action: 'slow',
-                    matrix: collisions.matrix
+                    action: 'slow'
                 }
             }
         }.bind(this);
