@@ -1,12 +1,12 @@
 define(function() {
-    return function() {
+    function Grass() {
         this.type = 'grass';
         this.zIndex = 2;
 
         this.position = {
             unit: {
-                x: 100,
-                y: 100
+                x: null,
+                y: null
             },
             sprite: {
                 x: 199,
@@ -14,5 +14,9 @@ define(function() {
                 shot: 0
             }
         };
+    };
+
+    return function() {
+        return new Grass();
     }
 });

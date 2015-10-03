@@ -1,22 +1,18 @@
 define([
     './playground',
-    './tank/index',
-    'state/dict',
-    './env/brick/index',
-    './env/grass/index',
-    './env/water/index'
-], function(Playground, tank, dict, brick, grass, water) {
+    './tank/tank',
+    'config/dict',
+    './env/brick',
+    './env/grass',
+    './env/water',
+    './collisions'
+], function(Playground, tank, dict, brick, grass, water, collisions) {
     var playground = new Playground();
 
-    playground.add(tank(dict.ME, {
-        units: playground.units,
-        draw: playground.draw
-    }));
+    playground.add(tank(dict.ME, playground, collisions));
 
     for(var i = 0; i < 50; i += 1) {
-        playground.add(brick({
-            units: playground.units
-        }));
+        playground.add(brick(playground));
         playground.add(grass());
         playground.add(water());
     }

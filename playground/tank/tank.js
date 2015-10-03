@@ -1,31 +1,41 @@
 define([
-    'state/dict',
     './move',
-    './sprite'
-], function(dict, tankMove, tankSprite) {
-    return function(type, playground, userControl) {
+    './sprite',
+    'playground/control'
+], function(tankMoveManager, spriteManager, controlManager) {
+
+    function Tank(type) {
         this.type = 'tank:' + type;
         this.zIndex = 1;
         this.DEFAULT_SPEED = 3;
         this.speed = this.DEFAULT_SPEED;
 
-        this.playground = playground;
-        this.userControl = userControl;
-
         this.position = {
             unit: {
-                x: 100,
-                y: 100,
-                dir: 'bottom'
+                x: null,
+                y: null,
+                dir: null
             },
             sprite: {
-                x: 529,
-                y: 67,
-                shot: 0
+                x: null,
+                y: null,
+                shot: null
             }
         };
 
-        tankMove.init(this);
-        tankSprite.init(this);
+        this.initControl = tankMoveManager;
+        this.initSpriteManager = spriteManager;
+        this.controlManager = controlManager;
+
+        this.initControl();
+        this.initSpriteManager();
+    };
+
+    return function(type, playground, collisions) {
+
+        Tank.prototype.playground = playground;
+        Tank.prototype.checkCollisions = collisions;
+
+        return new Tank(type);
     }
 });

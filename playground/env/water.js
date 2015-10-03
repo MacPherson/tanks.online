@@ -1,12 +1,13 @@
 define(function() {
-    return function() {
+    function Water() {
         this.type = 'water';
+        this.affect = 'slow';
         this.zIndex = 0;
 
         this.position = {
             unit: {
-                x: 100,
-                y: 100
+                x: null,
+                y: null
             },
             sprite: {
                 x: 232,
@@ -14,5 +15,9 @@ define(function() {
                 shot: 0
             }
         };
+    }
+
+    return function() {
+        return new Water()
     }
 });

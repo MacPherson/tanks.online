@@ -1,12 +1,13 @@
 define(function() {
-    return function(playground) {
+    function Brick() {
         this.type = 'brick';
+        this.affect = 'stop';
         this.zIndex = 2;
 
         this.position = {
             unit: {
-                x: 100,
-                y: 100
+                x: null,
+                y: null
             },
             sprite: {
                 x: 165,
@@ -19,7 +20,7 @@ define(function() {
 
         this.destroy = function() {
             if (this.levelDestroy === 1) {
-                playground.units.splice(playground.units.indexOf(this), 1);
+                this.playground.units.splice(this.playground.units.indexOf(this), 1);
                 return;
             }
 
@@ -27,5 +28,10 @@ define(function() {
             this.position.sprite.y = 165;
             this.levelDestroy += 1;
         };
+    };
+
+    return function(playground) {
+        Brick.prototype.playground = playground;
+        return new Brick();
     }
 });

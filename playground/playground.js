@@ -1,5 +1,5 @@
 define([
-    'state/dict',
+    'config/dict',
     './resources/index'
 ], function(dict, resources) {
     return function() {

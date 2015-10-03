@@ -1,5 +1,5 @@
-define(['playground/check-collisions', 'state/dict'], function(checkCollisions, dict) {
-    return function(tankPosition, playground) {
+define(['config/dict'], function(dict) {
+    function Fire(tankPosition, playground) {
         this.type = 'fire';
         this.zIndex = 3;
 
@@ -45,7 +45,7 @@ define(['playground/check-collisions', 'state/dict'], function(checkCollisions, 
                 return;
             }
 
-            var collisionResult = checkCollisions(playground, tankPosition.dir, this, 30);
+            var collisionResult = this.checkCollisions(playground, tankPosition.dir, this, 30);
 
             if (collisionResult.length) {
                 collisionResult.forEach(function(collision) {
@@ -96,5 +96,13 @@ define(['playground/check-collisions', 'state/dict'], function(checkCollisions, 
                 this.position.sprite.x = 166;
                 break;
         }
+    }
+
+    return function(tankPosition, playground, checkCollisions) {
+
+        Fire.prototype.playground = playground;
+        Fire.prototype.checkCollisions = checkCollisions;
+
+        return new Fire(tankPosition, playground);
     }
 });
