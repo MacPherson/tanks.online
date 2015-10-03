@@ -9,21 +9,16 @@ define([
     var playground = new Playground();
 
     playground.add(tank(dict.ME, {
-        draw: playground.draw,
-        units: playground.units
+        units: playground.units,
+        draw: playground.draw
     }));
 
     for(var i = 0; i < 50; i += 1) {
         playground.add(brick({
-            draw: playground.draw,
             units: playground.units
         }));
-        playground.add(grass({
-            draw: playground.draw
-        }));
-        playground.add(water({
-            draw: playground.draw
-        }));
+        playground.add(grass());
+        playground.add(water());
     }
 
     document.body.appendChild(playground.el);

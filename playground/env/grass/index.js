@@ -1,5 +1,5 @@
 define(['./grass'], function(Grass) {
-    return function(playground) {
-        return new Grass(playground)
+    return function() {
+        return new Grass()
     }
 });

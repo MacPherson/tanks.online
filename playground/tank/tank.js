@@ -25,15 +25,6 @@ define([
             }
         };
 
-        this.draw = function() {
-            playground.draw(this.position.sprite.x, this.position.sprite.y, this.position.unit.x, this.position.unit.y);
-        }.bind(this);
-
-        this.setPosition = function(x, y) {
-            this.position.unit.x = x;
-            this.position.unit.y = y;
-        };
-
         tankMove.init(this);
         tankSprite.init(this);
     }

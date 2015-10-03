@@ -15,8 +15,12 @@ define([
             this.units.sort(function(prev, next) {
                 return prev.zIndex - next.zIndex
             }).forEach(function(unit) {
-                unit.draw();
-            });
+                if (unit.draw) {
+                    unit.draw()
+                } else {
+                    this.draw(unit.position.sprite.x, unit.position.sprite.y, unit.position.unit.x, unit.position.unit.y);
+                }
+            }.bind(this));
         }
 
         function applyFirstPositions() {
@@ -27,10 +31,9 @@ define([
             });
             positionMatrix.forEach(function(pos, index) {
                 if (pos) {
-                    pos.setPosition(
-                        Math.floor(index % (dict.canvas.WIDTH / 45)) * 45,
-                        Math.floor(index / (dict.canvas.WIDTH / 45)) * 45
-                    );
+                    pos.position.unit.x = Math.floor(index % (dict.canvas.WIDTH / 45)) * 45;
+                    pos.position.unit.y = Math.floor(index / (dict.canvas.WIDTH / 45)) * 45;
+
                     if (pos.type.indexOf('tank') > -1) {
                         pos.position.unit.dir = ['top', 'right', 'bottom', 'left'][parseInt(Math.random() * 4)];
                         pos.changeSpritePosition(pos.position.unit.dir);
